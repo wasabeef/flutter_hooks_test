@@ -20,7 +20,7 @@
 
 ## The first thing
 
-This package respect [react-hooks-testing-library](https://github.com/testing-library/react-hooks-testing-library) so much. so the idea is the same.
+This package respect [react-hooks-testing-library](https://github.com/testing-library/react-hooks-testing-library) so much. so the idea is based on that.
 
 ## The problem
 
