@@ -95,3 +95,15 @@ testWidgets('should re-build component each time returned function is called',
   expect(buildCount, 3);
 });
 ```
+
+## Issues
+
+Please file [Flutter Hooks Testing Library](https://github.com/wasabeef/flutter_hooks_test) specific issues, bugs, or feature requests in our [issue tracker](https://github.com/wasabeef/flutter_hooks_test/issues/new).
+
+Plugin issues that are not specific to [Flutter Hooks Testing Library](https://github.com/wasabeef/flutter_hooks_test) can be filed in the [Flutter issue tracker](https://github.com/flutter/flutter/issues/new).
+
+## Contributing
+
+If you wish to contribute a change to any of the existing plugins in this repo,
+please review our [contribution guide](https://github.com/wasabeef/flutter_hooks_test/blob/master/CONTRIBUTING.md)
+and open a [pull request](https://github.com/wasabeef/flutter_hooks_test/pulls).
