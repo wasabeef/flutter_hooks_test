@@ -90,9 +90,6 @@ testWidgets('should re-build component each time returned function is called',
 
   await act(() => update());
   expect(buildCount, 2);
-
-  await act(() => update());
-  expect(buildCount, 3);
 });
 ```
 
