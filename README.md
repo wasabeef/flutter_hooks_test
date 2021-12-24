@@ -1,12 +1,16 @@
 <div align="center">
     <h1>Flutter Hooks Testing Library</h1>
     <a href="https://www.emojione.com">
+    <br />
+    <br />
     <img
         height="128"
         width="128"
         alt="fishing pole"
         src="https://raw.githubusercontent.com/wasabeef/flutter_hooks_test/main/art/fishing_pole.gif?token=AAN7UAVEVOSUHLYWSWALQDDBZ2KTG" />
     </a>
+    <br />
+    <br />
     <p>Simple and complete Flutter hooks testing utilities that encourage good testing practices.</p>
     <br />
     <strong>Inspired by <a href="https://react-hooks-testing-library.com/">react-hooks-testing-library</a>.</strong>
