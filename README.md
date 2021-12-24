@@ -80,7 +80,7 @@ VoidCallback useUpdate() {
 
 ### `use_update_test.dart`
 
-**Before**
+**Not using**
 ```dart
 testWidgets('should re-build component each time returned function is called', (tester) async {
   // Before
@@ -103,7 +103,7 @@ testWidgets('should re-build component each time returned function is called', (
 });
 ```
 
-**After**
+**Using**
 
 ```dart
 testWidgets('should re-build component each time returned function is called', (tester) async {
