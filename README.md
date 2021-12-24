@@ -80,18 +80,42 @@ VoidCallback useUpdate() {
 
 ### `use_update_test.dart`
 
+**Before**
 ```dart
-testWidgets('should re-build component each time returned function is called',
-    (tester) async {
+testWidgets('should re-build component each time returned function is called', (tester) async {
+  // Before
+  const key = Key('button');
+  var buildCount = 0;
+
+  // called count is 1
+  await tester.pumpWidget(HookBuilder(builder: (context) {
+    final update = useUpdate();
+    buildCount++;
+    return GestureDetector(
+      key: key,
+      onTap: () => update(),
+    );
+  }));
+  // called count is 2
+  await tester.tap(find.byKey(key));
+  await tester.pumpAndSettle(const Duration(milliseconds: 1));
+  expect(buildCount, 2);
+});
+```
+
+**After**
+
+```dart
+testWidgets('should re-build component each time returned function is called', (tester) async {
+  // After
   var buildCount = 0;
   final result = await buildHook((_) {
     buildCount++;
     return useUpdate();
   });
-  final update = result.current;
 
   expect(buildCount, 1);
-
+  final update = result.current;
   await act(() => update());
   expect(buildCount, 2);
 });
