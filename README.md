@@ -17,6 +17,9 @@
     <br />
     <br />
     <br />
+    <a href="https://pub.dartlang.org/packages/flutter_hooks_test">
+      <img src="https://img.shields.io/pub/v/flutter_hooks_test.svg">
+    </a>
     <a href="https://pub.dev/packages/flutter_lints">
       <img src="https://img.shields.io/badge/style-flutter__lints-40c4ff.svg" alt="flutter_lints" />
     </a>
