@@ -64,7 +64,8 @@ the results.
 ## Installation
 
 ```sh
-flutter pub add flutter_use
+dev_dependencies:
+  flutter_hooks_test: ^0.0.1
 ```
 
 ## Example
