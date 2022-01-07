@@ -24,7 +24,7 @@
 
 ## The first thing
 
-This package respect [react-hooks-testing-library](https://github.com/testing-library/react-hooks-testing-library) so much. so the idea is based on that.
+This package has great respect for [react-hooks-testing-library](https://github.com/testing-library/react-hooks-testing-library). So the idea is based on it.
 
 ## The problem
 
