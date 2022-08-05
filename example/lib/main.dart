@@ -5,10 +5,10 @@ import 'package:flutter_hooks_test/flutter_hooks_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import 'hooks/use_counter.dart';
-import 'hooks/use_latest.dart';
-import 'hooks/use_mount.dart';
-import 'hooks/use_update.dart';
+import '../../test/hooks/use_counter.dart';
+import '../../test/hooks/use_latest.dart';
+import '../../test/hooks/use_mount.dart';
+import '../../test/hooks/use_update.dart';
 
 class MockEffect extends Mock {
   VoidCallback? call();

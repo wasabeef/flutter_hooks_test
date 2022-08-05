@@ -7,5 +7,6 @@ import 'use_effect_once.dart';
 void useMount(VoidCallback fn) {
   return useEffectOnce(() {
     fn();
+    return;
   });
 }
