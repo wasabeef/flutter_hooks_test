@@ -7,7 +7,7 @@
         height="128"
         width="128"
         alt="fishing pole"
-        src="https://raw.githubusercontent.com/wasabeef/flutter_hooks_test/main/art/fishing_pole.gif?token=AAN7UAVEVOSUHLYWSWALQDDBZ2KTG" />
+        src="https://raw.githubusercontent.com/wasabeef/flutter_hooks_test/main/art/fishing_pole.gif" />
     </a>
     <br />
     <br />
