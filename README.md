@@ -62,8 +62,6 @@ the results.
 1. Your hook is defined alongside a component and is only used there
 2. Your hook is easy to test by just testing the components using it
 
-
-
 ## Installation
 
 ```sh
@@ -85,6 +83,7 @@ VoidCallback useUpdate() {
 ### `use_update_test.dart`
 
 **Not using**
+
 ```dart
 testWidgets('should re-build component each time returned function is called', (tester) async {
   // Before

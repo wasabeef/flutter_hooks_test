@@ -2,12 +2,9 @@
   "name": "flutter_hooks_test",
   "private": false,
   "author": "wasabeef",
-  "devDependencies": {
-    "husky": "^8.0.3",
-    "lint-staged": "13.1.0",
-    "prettier": "^3.0.0"
-  },
   "scripts": {
+    "format": "prettier --config prettier.config.js --write '**/*.+(md|yml|yaml|json|xml)'",
+    "preinstall": "npx only-allow pnpm",
     "prepare": "husky install"
   },
   "lint-staged": {
@@ -15,5 +12,12 @@
     "*.@(json|yaml|yml)": [
       "prettier --write"
     ]
+  },
+  "devDependencies": {
+    "@prettier/plugin-xml": "^3.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "13.1.0",
+    "prettier": "^3.0.0",
+    "prettier-plugin-packagejson": "^2.4.0"
   }
 }
