@@ -15,9 +15,9 @@ scripts:
   get:
     run: melos exec -- flutter pub get
 
-  analyze: melos exec -- dart analyze .
+  analyze: melos exec -- flutter analyze .
 
-  format: bash ./scripts/dartfmt.sh
+  format: melos exec -- dart format .
 
   test:
     run: |
