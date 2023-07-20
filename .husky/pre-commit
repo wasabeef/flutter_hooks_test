@@ -1,4 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn lint-staged
+# lint-staged
+pnpm lint-staged --allow-empty --max-arg-length 1

@@ -12,14 +12,14 @@ scripts:
   pub:upgrade:
     run: melos exec -- flutter pub upgrade
 
-  pub:get:
+  get:
     run: melos exec -- flutter pub get
 
   analyze: melos exec -- dart analyze .
 
   format: bash ./scripts/dartfmt.sh
 
-  unit:test:
+  test:
     run: |
       melos exec -- flutter test
     select-package:
