@@ -1,7 +1,7 @@
 name: flutter_hooks_test
 
 description: Simple and complete Flutter hooks testing utilities that encourage good testing practices..
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/wasabeef/flutter_hooks_test
 repository: https://github.com/wasabeef/flutter_hooks_test
 documentation: https://github.com/wasabeef/flutter_hooks_test

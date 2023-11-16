@@ -1,3 +1,9 @@
+## 0.0.5
+
+**Feature**
+
+- [#35](https://github.com/wasabeef/flutter_hooks_test/pull/35) Support Flutter 3.16.0.
+
 ## 0.0.3, 0.0.4
 
 **Feature**
