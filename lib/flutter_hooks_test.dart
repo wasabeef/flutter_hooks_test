@@ -56,7 +56,7 @@ class _HookTestingAction<T, P> {
 Future<void> _build(Widget widget) async {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
   return TestAsyncUtils.guard<void>(() {
-    binding.attachRootWidget(widget);
+    binding.attachRootWidget(binding.wrapWithDefaultView(widget));
     binding.scheduleFrame();
     return binding.pump();
   });
