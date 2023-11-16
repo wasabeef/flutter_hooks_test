@@ -28,13 +28,13 @@ jobs:
       - name: Get dependencies
         run: |
           dart pub global activate melos
-          melos run pub:get
+          melos get
 
       - name: Run tests for our dart project.
         run: |
-          melos run unit:test
+          melos test
 
       - name: Check for any formatting and statically analyze the code.
         run: |
-          melos run format
-          melos run analyze
+          melos format
+          melos analyze
