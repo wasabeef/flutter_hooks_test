@@ -8,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 Future<_HookTestingAction<T, P>> buildHook<T, P>(
   T Function(P? props) hook, {
   P? initialProps,
+  Widget Function(Widget child)? wrapper,
 }) async {
   late T result;
 
@@ -17,10 +18,12 @@ Future<_HookTestingAction<T, P>> buildHook<T, P>(
       return Container();
     });
   }
+  Widget warpedBuilder([P? props]) =>
+      wrapper == null ? builder(props) : wrapper(builder(props));
 
-  await _build(builder(initialProps));
+  await _build(warpedBuilder(initialProps));
 
-  Future<void> rebuild([P? props]) => _build(builder(props));
+  Future<void> rebuild([P? props]) => _build(warpedBuilder(props));
 
   Future<void> unmount() => _build(Container());
 
