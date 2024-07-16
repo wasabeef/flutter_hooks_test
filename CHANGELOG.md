@@ -1,3 +1,11 @@
+## 0.0.6
+
+**Feature**
+
+- [#40](https://github.com/wasabeef/flutter_hooks_test/pull/40) Add a parameter "wrapper" to allow adding providers to hooks. by [@KalSat](https://github.com/KalSat)
+- Update Flutter to ">=3.20.0"
+- Update flutter_hooks to ">=0.20.0"
+
 ## 0.0.5
 
 **Feature**
