@@ -18,6 +18,7 @@ Future<_HookTestingAction<T, P>> buildHook<T, P>(
       return Container();
     });
   }
+
   Widget warpedBuilder([P? props]) =>
       wrapper == null ? builder(props) : wrapper(builder(props));
 
