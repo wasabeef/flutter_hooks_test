@@ -27,6 +27,6 @@ jobs:
       - name: Get dependencies
         run: |
           dart pub global activate melos
-          melos run pub:get
+          melos run get
       - name: Release
         uses: softprops/action-gh-release@v2
