@@ -38,10 +38,13 @@ void main() {
   testWidgets('Using flutter_hooks_test', (tester) async {
     // After
     var buildCount = 0;
-    final result = await buildHook((_) {
-      buildCount++;
-      return useUpdate();
-    });
+    final result = await buildHook(
+      (_) {
+        buildCount++;
+        return useUpdate();
+      },
+      wrapper: (child) => Container(child: child),
+    );
 
     expect(buildCount, 1);
     final update = result.current;
@@ -57,7 +60,11 @@ void main() {
 
   testWidgets('should unmount after unmount()', (tester) async {
     final effect = MockEffect();
-    final result = await buildHook((_) => useMount(() => effect()));
+    final result = await buildHook(
+      (_) => useMount(
+        () => effect(),
+      ),
+    );
     verify(effect()).called(1);
     verifyNoMoreInteractions(effect);
     await result.unmount();

@@ -19,12 +19,12 @@ Future<_HookTestingAction<T, P>> buildHook<T, P>(
     });
   }
 
-  Widget warpedBuilder([P? props]) =>
+  Widget wrappedBuilder([P? props]) =>
       wrapper == null ? builder(props) : wrapper(builder(props));
 
-  await _build(warpedBuilder(initialProps));
+  await _build(wrappedBuilder(initialProps));
 
-  Future<void> rebuild([P? props]) => _build(warpedBuilder(props));
+  Future<void> rebuild([P? props]) => _build(wrappedBuilder(props));
 
   Future<void> unmount() => _build(Container());
 
