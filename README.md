@@ -66,7 +66,7 @@ the results.
 
 ```sh
 dev_dependencies:
-  flutter_hooks_test: ^0.0.1
+  flutter_hooks_test: ^x.x.x
 ```
 
 ## Example
