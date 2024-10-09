@@ -112,10 +112,13 @@ testWidgets('should re-build component each time returned function is called', (
 testWidgets('should re-build component each time returned function is called', (tester) async {
   // After
   var buildCount = 0;
-  final result = await buildHook((_) {
-    buildCount++;
-    return useUpdate();
-  });
+  final result = await buildHook(
+    (_) {
+      buildCount++;
+      return useUpdate();
+    },
+    wrapper: (child) => Container(child: child),
+  );
 
   expect(buildCount, 1);
   final update = result.current;
