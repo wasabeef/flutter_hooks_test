@@ -4,7 +4,6 @@
   "author": "wasabeef",
   "scripts": {
     "format": "prettier --config prettier.config.js --write '**/*.+(md|yml|yaml|json|xml)'",
-    "preinstall": "npx only-allow pnpm",
     "prepare": "husky install"
   },
   "lint-staged": {
