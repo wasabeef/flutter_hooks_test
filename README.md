@@ -27,7 +27,7 @@
 
 ## The first thing
 
-This package has great respect for [react-hooks-testing-library](https://github.com/testing-library/react-hooks-testing-library). So the idea is based on it.
+This package is heavily inspired by [react-hooks-testing-library](https://github.com/testing-library/react-hooks-testing-library), and its core concepts are based on it.
 
 ## The problem
 
@@ -49,7 +49,7 @@ This library aims to provide a testing experience as close as possible to native
 from within a real component.
 
 Using this library, you do not have to concern yourself with how to construct, render or interact
-with the flutter component in order to test your hook. You can just use the hook directly and assert
+with the Flutter component in order to test your hook. You can just use the hook directly and assert
 the results.
 
 ## When to use this library
@@ -66,7 +66,7 @@ the results.
 
 ```sh
 dev_dependencies:
-  flutter_hooks_test: ^x.x.x
+  flutter_hooks_test: 
 ```
 
 ## Example

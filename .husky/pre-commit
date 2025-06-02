@@ -2,4 +2,4 @@
 . "$(dirname "$0")/_/husky.sh"
 
 # lint-staged
-pnpm lint-staged --allow-empty --max-arg-length 1
+bun lint-staged --allow-empty --max-arg-length 1

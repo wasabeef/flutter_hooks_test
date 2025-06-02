@@ -1,15 +1,13 @@
-name: flutter_use
+name: flutter_hooks_test
 
 packages:
   - .
-  - example/**
 
 ide:
   intellij: true
-  vscode: true
 
 scripts:
-  pub:upgrade:
+  upgrade:
     run: melos exec -- flutter pub upgrade
 
   get:
@@ -20,8 +18,4 @@ scripts:
   format: melos exec -- dart format .
 
   test:
-    run: |
-      melos exec -- flutter test
-    select-package:
-      dir-exists:
-        - test
+    run: melos exec -- flutter test

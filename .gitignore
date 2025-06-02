@@ -4,16 +4,8 @@
 *.pyc
 *.swp
 .DS_Store
-.atom/
 .buildlog/
 .history
-.svn/
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -22,14 +14,11 @@
 
 # Flutter/Dart/Pub related
 # Libraries should not include pubspec.lock, per https://dart.dev/guides/libraries/private-files#pubspeclock.
-pubspec.lock
+/pubspec.lock
 **/doc/api/
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
-.packages
-.pub-cache/
-.pub/
 build/
 
 # Android related
@@ -85,3 +74,6 @@ node_modules/
 !**/ios/**/default.mode2v3
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
+
+# SpecStory
+.specstory/

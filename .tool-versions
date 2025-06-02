@@ -1,2 +1,4 @@
-dart 3.4.4
-flutter 3.22.2-stable
+dart 3.8.1
+flutter 3.32.1
+bun 1.2.15
+nodejs 24.1.0

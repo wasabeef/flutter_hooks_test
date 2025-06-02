@@ -1,5 +1,6 @@
 /** @type {import("prettier").Config} */
-module.exports = {
+export default {
+  printWidth: 80,
   singleQuote: true,
   useTabs: false,
   tabWidth: 2,
@@ -7,6 +8,7 @@ module.exports = {
   bracketSpacing: true,
   trailingComma: 'all',
   arrowParens: 'always',
+  endOfLine: 'lf',
   xmlWhitespaceSensitivity: 'ignore',
   plugins: ['@prettier/plugin-xml', 'prettier-plugin-packagejson'],
 };
