@@ -15,12 +15,16 @@ jobs:
         os: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
+
+      - name: Import .tool-versions
+        uses: wasabeef/import-asdf-tool-versions-action@v1.1.0
+        id: asdf
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          channel: stable
-      - uses: dart-lang/setup-dart@v1
-        with:
-          sdk: stable
+          flutter-version: ${{ steps.asdf.outputs.flutter }}
+          cache: true
 
       - name: Set environment
         run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
