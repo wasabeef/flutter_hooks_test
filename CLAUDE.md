@@ -52,43 +52,76 @@ bun run prepare
 
 ## Architecture and Code Structure
 
-### Core API
+### Core API (v2.0.0)
 
 The library exports a single file `lib/flutter_hooks_test.dart` containing:
 
-1. **`buildHook<T, P>`** - Main function to test hooks
+1. **`buildHook<T>()`** - Test hooks without props
    - Generic `T`: Return type of the hook
-   - Generic `P`: Props type for parameterized hooks
-   - Returns `_HookTestingAction<T>` with methods:
+   - Returns `HookResult<T>` with methods:
      - `current`: Access current hook value
-     - `rebuild([props])`: Trigger rebuild with optional new props
+     - `rebuild()`: Trigger rebuild and update history
      - `unmount()`: Unmount the hook
+     - `all`: Build history for debugging
+     - `buildCount`: Number of builds
 
-2. **`act`** - Wraps state changes to ensure proper Flutter test lifecycle
+2. **`buildHookWithProps<T, P>()`** - Test hooks with props
+   - Generic `T`: Return type, `P`: Props type
+   - Returns `HookResultWithProps<T, P>` with additional:
+     - `rebuildWithProps(P props)`: Rebuild with new props
+
+3. **`act`** - Wraps state changes to ensure proper Flutter test lifecycle
+
+4. **`waitFor` utilities** - Async testing helpers
+   - `waitFor(condition)`: Wait for condition to be true
+   - `waitForValueToChange(getValue)`: Wait for value change
+   - `result.waitForNextUpdate()`: Wait for hook rebuild
+   - `result.waitForValueToMatch(predicate)`: Wait for specific condition
    - Similar to React's `act` function
    - Required when changing hook state
 
-### Testing Pattern
+### Testing Patterns (v2.0.0)
 
 ```dart
-// Basic hook test structure
-final result = await buildHook((_) => useMyHook());
+// Basic hook test (no props)
+final result = await buildHook(() => useMyHook());
 await act(() => result.current.doSomething());
 expect(result.current.value, expectedValue);
 
+// Hook with props
+final result = await buildHookWithProps(
+  (count) => useCounter(count),
+  initialProps: 5,
+);
+await result.rebuildWithProps(10);
+expect(result.current.value, 10);
+
 // With wrapper widget
 final result = await buildHook(
-  (_) => useMyHook(),
+  () => useMyHook(),
   wrapper: (child) => Provider(child: child),
 );
+
+// Async testing with waitFor
+await act(() => result.current.startAsync());
+await waitFor(() => !result.current.isLoading);
+expect(result.current.data, isNotNull);
+
+// History tracking
+expect(result.buildCount, 1);
+expect(result.all.length, 1);
+await result.rebuild();
+expect(result.buildCount, 2);
 ```
 
-### Internal Implementation
+### Internal Implementation (v2.0.0)
 
 - Uses `TestWidgetsFlutterBinding` for test environment
-- Creates a minimal widget tree with `HookBuilder`
-- Manages completer-based async operations for mount/unmount
-- Preserves hook state across rebuilds using keys
+- Creates minimal widget tree with `HookBuilder`
+- `_BaseHookResult<T>` base class eliminates code duplication
+- Build history tracking with automatic value capture
+- Separate result classes for hooks with/without props
+- Helper functions (`_applyWrapper`) and constants (`_kEmptyWidget`)
 
 ## Testing Approach
 
@@ -104,12 +137,15 @@ final result = await buildHook(
 - Pre-commit hooks format code automatically
 - CI runs on Ubuntu with asdf version management
 
-## Important Conventions
+## Important Conventions (v2.0.0)
 
-1. **Type Safety**: Always specify generic types when using `buildHook`
-2. **Act Wrapper**: Always wrap state changes in `act()`
-3. **Async Handling**: Most operations return Futures - use `await`
-4. **Testing**: Test both happy paths and edge cases (mount/unmount/rebuild)
+1. **API Selection**: Use `buildHook()` for hooks without props, `buildHookWithProps()` for hooks with props
+2. **Type Safety**: Generic types are automatically inferred in most cases
+3. **Act Wrapper**: Always wrap state changes in `act()`
+4. **Async Testing**: Use `waitFor` utilities for async operations
+5. **History Tracking**: Use `result.all` and `result.buildCount` for debugging
+6. **Rebuilds**: Call `rebuild()` after state changes to update history
+7. **Testing**: Test mount/unmount/rebuild scenarios and async state changes
 
 ## Version Requirements
 
@@ -117,27 +153,30 @@ final result = await buildHook(
 - Flutter: `>=3.20.0`
 - Uses Flutter hooks `^0.21.2`
 
-## Release Process
+## Release Process (v2.0.0+)
 
-Releases are fully automated via GitHub Actions:
+Releases are fully automated via GitHub Actions with OIDC authentication:
 
 ### Creating a Release
 
 1. **Update version**: Update version in `pubspec.yaml`
-2. **Update changelog**: Run `git cliff --unreleased --tag v1.0.1 --output CHANGELOG.md`
-3. **Commit changes**: `git commit -am "chore(release): prepare for v1.0.1"`
-4. **Create tag**: `git tag v1.0.1`
-5. **Push**: `git push origin main --tags`
+2. **Commit changes**: `git commit -am "chore: bump version to v2.0.1"`
+3. **Create tag**: `git tag v2.0.1`
+4. **Push**: `git push origin main --tags`
+
+Changelog is automatically generated from conventional commits.
 
 ### Automated Release Steps
 
 When a tag matching `v[0-9]+.[0-9]+.[0-9]+*` is pushed:
 
-1. **CI Validation**: All tests, formatting, and analysis must pass
-2. **Dry Run**: Package publication is tested
-3. **Release Notes**: Auto-generated using git-cliff from conventional commits
-4. **GitHub Release**: Created with generated release notes
-5. **pub.dev Publication**: Package is published automatically
+1. **Environment Setup**: Flutter, Dart, Bun, and Melos
+2. **Dependencies**: Install and bootstrap packages with Melos and Bun
+3. **CI Validation**: All tests, formatting, and analysis must pass
+4. **Dry Run**: Package publication tested with OIDC authentication
+5. **Release Notes**: Auto-generated using git-cliff from conventional commits
+6. **GitHub Release**: Created with generated release notes
+7. **pub.dev Publication**: Published automatically with OIDC (no token required)
 
 ### Commit Convention
 

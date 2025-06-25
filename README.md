@@ -61,7 +61,7 @@ the results.
 
 ```yaml
 dev_dependencies:
-  flutter_hooks_test: ^1.0.0
+  flutter_hooks_test: ^2.0.0
 ```
 
 ## Example
@@ -133,3 +133,4 @@ Plugin issues that are not specific to [Flutter Hooks Testing Library](https://g
 If you wish to contribute a change to this project,
 please review our [contribution guide](https://github.com/wasabeef/flutter_hooks_test/blob/main/CONTRIBUTING.md)
 and open a [pull request](https://github.com/wasabeef/flutter_hooks_test/pulls).
+

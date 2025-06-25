@@ -1,3 +1,26 @@
+## 2.0.0
+
+**BREAKING CHANGES**
+
+- Remove `debug()` methods from `HookResult` and `_HookTestingAction` classes
+- Internal implementation restructured with new base classes
+
+**Features**
+
+- Add type-safe API with separate `buildHook()` and `buildHookWithProps()` functions
+- Implement build history tracking with `result.all` and `result.buildCount` properties
+- Add `waitFor` utilities for async testing scenarios
+  - `waitFor(condition)` - Wait for condition to become true
+  - `waitForValueToChange(getValue)` - Wait for value to change
+  - `result.waitForNextUpdate()` - Wait for hook rebuild
+  - `result.waitForValueToMatch(predicate)` - Wait for specific condition
+
+**Improvements**
+
+- Improve DartDoc accuracy and clarity
+- Update documentation with Flutter terminology (widget vs component)
+- Better error messages and examples in documentation
+
 ## 1.0.0
 
 **Feature**
