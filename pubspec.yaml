@@ -20,5 +20,5 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: ^6.0.0
-  mockito: ^5.4.6
+  mockito: ^5.4.4
   melos: ^6.3.3
