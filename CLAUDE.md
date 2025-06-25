@@ -57,7 +57,6 @@ bun run prepare
 The library exports a single file `lib/flutter_hooks_test.dart` containing:
 
 1. **`buildHook<T, P>`** - Main function to test hooks
-
    - Generic `T`: Return type of the hook
    - Generic `P`: Props type for parameterized hooks
    - Returns `_HookTestingAction<T>` with methods:
