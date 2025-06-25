@@ -39,7 +39,7 @@ void main() {
     // After
     var buildCount = 0;
     final result = await buildHook(
-      (_) {
+      () {
         buildCount++;
         return useUpdate();
       },
@@ -53,7 +53,7 @@ void main() {
   });
 
   testWidgets('should rebuild after act()', (tester) async {
-    final result = await buildHook((_) => useCounter(5));
+    final result = await buildHook(() => useCounter(5));
     await act(() => result.current.inc());
     expect(result.current.value, 6);
   });
@@ -61,7 +61,7 @@ void main() {
   testWidgets('should unmount after unmount()', (tester) async {
     final effect = MockEffect();
     final result = await buildHook(
-      (_) => useMount(
+      () => useMount(
         () => effect(),
       ),
     );
@@ -74,19 +74,83 @@ void main() {
 
   testWidgets('should rebuild after rebuild()', (tester) async {
     final effect = MockEffect();
-    final result = await buildHook((_) => useMount(() => effect()));
+    final result = await buildHook(() => useMount(() => effect()));
     await result.rebuild();
     verify(effect()).called(1);
     verifyNoMoreInteractions(effect);
   });
 
   testWidgets('should rebuild after rebuild() with parameter', (tester) async {
-    final result = await buildHook(
+    final result = await buildHookWithProps(
       (count) => useLatest(count),
       initialProps: 123,
     );
     expect(result.current, 123);
-    await result.rebuild(456);
+    await result.rebuildWithProps(456);
     expect(result.current, 456);
+  });
+
+  testWidgets('should track build history', (tester) async {
+    final result = await buildHook(() => useCounter(0));
+
+    // Initial build
+    expect(result.buildCount, 1);
+    expect(result.all.length, 1);
+    expect(result.all.first.value, 0);
+
+    // Trigger state change and rebuild
+    result.current.inc();
+    await result.rebuild();
+
+    // History should track the new state
+    expect(result.buildCount, 2);
+    expect(result.all.length, 2);
+    expect(result.all.last.value, 1);
+  });
+
+  testWidgets('should provide build count and history', (tester) async {
+    final result = await buildHook(() => useCounter(5));
+
+    expect(result.current.value, 5);
+    expect(result.buildCount, 1);
+    expect(result.all.length, 1);
+  });
+
+  testWidgets('should work with new API for props', (tester) async {
+    final result = await buildHookWithProps(
+      (count) => useLatest(count),
+      initialProps: 100,
+    );
+
+    expect(result.current, 100);
+    await result.rebuildWithProps(200);
+    expect(result.current, 200);
+  });
+
+  group('waitFor utilities', () {
+    testWidgets('waitFor basic functionality demonstration', (tester) async {
+      final result = await buildHook(() => useCounter(0));
+
+      // Demonstrate waitFor with immediate condition
+      await waitFor(() => result.current.value == 0);
+      expect(result.current.value, 0);
+
+      // Increment and wait for the change to be reflected
+      await act(() => result.current.inc());
+      await waitFor(() => result.current.value == 1);
+      expect(result.current.value, 1);
+    });
+
+    testWidgets('waitForValueToMatch should work with predicate',
+        (tester) async {
+      final result = await buildHook(() => useCounter(5));
+
+      // Wait for a condition that's already true
+      final value = await result.waitForValueToMatch(
+        (counter) => counter.value >= 5,
+      );
+
+      expect(value.value, 5);
+    });
   });
 }

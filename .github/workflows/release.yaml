@@ -1,19 +1,23 @@
-name: Publish to pub.dev
+name: Release
 
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+' # Tag pattern to match for publishing
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+
+permissions:
+  contents: write
+  id-token: write # Required for OIDC authentication
 
 jobs:
-  publish:
+  release:
+    name: Release and Publish
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write # Required for authentication using OIDC
-      contents: write
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Import .tool-versions
         uses: wasabeef/import-asdf-tool-versions-action@v1.1.0
@@ -25,22 +29,53 @@ jobs:
           flutter-version: ${{ steps.asdf.outputs.flutter }}
           cache: true
 
-      - name: Setup Dart for publishing
+      - name: Setup Dart
         uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ steps.asdf.outputs.dart }}
 
-      - name: Setup Melos
+      - name: Set environment
+        run: echo "$HOME/.pub-cache/bin" >> "$GITHUB_PATH"
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: ${{ steps.asdf.outputs.bun }}
+
+      - name: Install Melos
         run: dart pub global activate melos
 
-      - name: Get Melos packages
-        run: melos bootstrap
+      - name: Bootstrap packages
+        run: |
+          melos bootstrap
+          bun install
 
-      - name: Publish package
-        run: dart pub publish --force
+      - name: Verify all tests pass
+        run: melos test
+
+      - name: Verify code formatting
+        run: melos format && melos analyze
+
+      - name: Check package can be published (dry-run)
+        run: dart pub publish --dry-run
+
+      - name: Generate release notes
+        id: release_notes
+        uses: orhun/git-cliff-action@v3
+        with:
+          config: .github/cliff.toml
+          args: --latest --strip header
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2 # Consider using a more recent version
-        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body: ${{ steps.release_notes.outputs.content }}
+          draft: false
+          prerelease: false
+
+      - name: Publish to pub.dev
+        run: dart pub publish --force

@@ -15,7 +15,13 @@ scripts:
 
   analyze: melos exec -- flutter analyze .
 
-  format: melos exec -- dart format .
+  format:
+    run: |
+      melos exec -- dart format .
+      bunx prettier --write .
 
   test:
     run: melos exec -- flutter test
+
+  clean:
+    run: melos exec -- flutter clean

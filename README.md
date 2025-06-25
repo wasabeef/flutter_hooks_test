@@ -26,42 +26,42 @@ This package is heavily inspired by [react-hooks-testing-library](https://github
 
 ## The problem
 
-You're writing an awesome custom hook and you want to test it, but as soon as you call it you see
+You're writing a custom hook and you want to test it, but as soon as you call it you see
 the following error:
 
-> Invariant Violation: Hooks can only be called inside the body of a function component.
+> Bad state: This hook is called outside of a hook context.
 
-You don't really want to write a component solely for testing this hook and have to work out how you
+You don't really want to write a widget solely for testing this hook and have to work out how you
 were going to trigger all the various ways the hook can be updated, especially given the
 complexities of how you've wired the whole thing together.
 
 ## The solution
 
 The `Flutter Hooks Testing Library` allows you to create a simple test harness for Flutter hooks that
-handles running them within the body of a function component, as well as providing various useful
-utility functions for updating the inputs and retrieving the outputs of your amazing custom hook.
+handles running them within the body of a widget, as well as providing various useful
+utility functions for updating the inputs and retrieving the outputs of your custom hook.
 This library aims to provide a testing experience as close as possible to natively using your hook
-from within a real component.
+from within a real widget.
 
 Using this library, you do not have to concern yourself with how to construct, render or interact
-with the Flutter component in order to test your hook. You can just use the hook directly and assert
+with the Flutter widget in order to test your hook. You can just use the hook directly and assert
 the results.
 
 ## When to use this library
 
-1. You're writing a library with one or more custom hooks that are not directly tied to a component
-2. You have a complex hook that is difficult to test through component interactions
+1. You're writing a library with one or more custom hooks that are not directly tied to a widget
+2. You have a complex hook that is difficult to test through widget interactions
 
 ## When not to use this library
 
-1. Your hook is defined alongside a component and is only used there
-2. Your hook is easy to test by just testing the components using it
+1. Your hook is defined alongside a widget and is only used there
+2. Your hook is easy to test by just testing the widgets using it
 
 ## Installation
 
-```sh
+```yaml
 dev_dependencies:
-  flutter_hooks_test: 
+  flutter_hooks_test: ^1.0.0
 ```
 
 ## Example
@@ -80,7 +80,7 @@ VoidCallback useUpdate() {
 **Not using**
 
 ```dart
-testWidgets('should re-build component each time returned function is called', (tester) async {
+testWidgets('should rebuild widget each time returned function is called', (tester) async {
   // Before
   const key = Key('button');
   var buildCount = 0;
@@ -104,11 +104,11 @@ testWidgets('should re-build component each time returned function is called', (
 **Using**
 
 ```dart
-testWidgets('should re-build component each time returned function is called', (tester) async {
+testWidgets('should rebuild widget each time returned function is called', (tester) async {
   // After
   var buildCount = 0;
   final result = await buildHook(
-    (_) {
+    () {
       buildCount++;
       return useUpdate();
     },
@@ -130,6 +130,6 @@ Plugin issues that are not specific to [Flutter Hooks Testing Library](https://g
 
 ## Contributing
 
-If you wish to contribute a change to any of the existing plugins in this repo,
-please review our [contribution guide](https://github.com/wasabeef/flutter_hooks_test/blob/master/CONTRIBUTING.md)
+If you wish to contribute a change to this project,
+please review our [contribution guide](https://github.com/wasabeef/flutter_hooks_test/blob/main/CONTRIBUTING.md)
 and open a [pull request](https://github.com/wasabeef/flutter_hooks_test/pulls).

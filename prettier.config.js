@@ -9,6 +9,4 @@ export default {
   trailingComma: 'all',
   arrowParens: 'always',
   endOfLine: 'lf',
-  xmlWhitespaceSensitivity: 'ignore',
-  plugins: ['@prettier/plugin-xml', 'prettier-plugin-packagejson'],
 };

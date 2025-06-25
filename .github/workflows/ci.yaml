@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-latest]
     steps:
       - uses: actions/checkout@v4
 
@@ -26,15 +26,25 @@ jobs:
           flutter-version: ${{ steps.asdf.outputs.flutter }}
           cache: true
 
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ steps.asdf.outputs.dart }}
+
       - name: Set environment
-        run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+        run: echo "$HOME/.pub-cache/bin" >> "$GITHUB_PATH"
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: ${{ steps.asdf.outputs.bun }}
 
       - name: Get dependencies
         run: |
           dart pub global activate melos
           melos get
+          bun install
 
-      - name: Run tests for our dart project.
+      - name: Run tests with coverage
         run: |
           melos test
 

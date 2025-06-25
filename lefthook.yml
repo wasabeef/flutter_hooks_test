@@ -1,0 +1,14 @@
+# EXAMPLE USAGE:
+# Refer for explanation to following link:
+# https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+
+pre-commit:
+  commands:
+    format:
+      glob: '*.dart'
+      run: dart format {staged_files}
+      stage_fixed: true
+    prettier:
+      glob: '*.{md,yaml,yml,json}'
+      run: bunx prettier --write {staged_files}
+      stage_fixed: true
